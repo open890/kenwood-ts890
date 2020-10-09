@@ -10,7 +10,7 @@ First, establish a connection to the radio as described in the LAN-HOWTO in this
 
 Once connected and signed in, send `##VP1;` to enable the high-quality data stream, or `##VP2;` for the low-quality stream. Send `##VP0;` to turn it off.
 
-After sending `##VP`, the TS-890 will immediately startstreaming UDP packets back to the connecting IP address on port `60001`
+After sending `##VP`, the TS-890 will immediately start sending UDP packets back to the connecting IP address on port `60001`
 
 ## Data Format
 
