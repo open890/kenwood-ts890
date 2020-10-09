@@ -12,13 +12,11 @@ outfile = "output.bin"
 File.open(file) do |file|
   File.open(outfile, "wb") do |outfile|
 
+    # HQ UDP packets come in 652 bytes at a time
     while (buffer = file.read(652)) do
-      puts "read #{buffer.length} bytes"
-
-      stripped_data = buffer[12, 640] # chop off 12 bytes of RTP headers we don't want
-      puts "stripped down to #{stripped_data.length} bytes"
-
-      outfile.write(stripped_data)
+      # chop off the first 12 bytes of RTP headers we don't want,
+      # writing the remaining 640 bytes to the file.
+      outfile.write(buffer[12, 640])
     end
 
   end
