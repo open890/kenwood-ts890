@@ -56,4 +56,4 @@ If you have a separate program that will sign in to the radio and enable VOIP, t
 
 `ffmpeg -loglevel quiet -protocol_whitelist file,crypto,rtp,udp -y -vn -dn -acodec pcm_s16le -i ts890-high.sdp -ac 1 -ar 44100  out.mp3`
 
-The `ts890-high.sdp` is required for ffmpeg to recognize the custom payload type (96). It's available in this code repository.
+The [sdp/ts890-high.sdp](SDP file) is required for ffmpeg to recognize the custom payload type (96). 
