@@ -54,6 +54,10 @@ end
 
 If you have a separate program that will sign in to the radio and enable VOIP, the following command can be used to output an MP3 file of the audio:
 
-`ffmpeg -loglevel quiet -protocol_whitelist file,crypto,rtp,udp -y -vn -dn -acodec pcm_s16le -i ts890-high.sdp -ac 1 -ar 44100  out.mp3`
+`ffmpeg -loglevel quiet -protocol_whitelist file,crypto,rtp,udp -y -vn -dn -acodec pcm_s16le -i ts890-high.sdp -ac 1 -ar 44100 out.mp3`
 
 The [SDP file](sdp/ts890-high.sdp) is required for ffmpeg to recognize the custom payload type (96). 
+
+Once you have an audio file, you can also create a visualization of it:
+
+`ffmpeg -i out.mp3 -filter_complex "[0:a]showwaves=s=1920x1080:rate=60:mode=p2p:scale=lin:colors=green,format=yuv420p[v]" -map "[v]" -map 0:a -c:v libx264 -c:a copy output.mkv`
