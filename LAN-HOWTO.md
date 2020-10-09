@@ -25,7 +25,7 @@ Now, we need to send the username and password, but in a special format that the
 
 `##ID<user_type><length_of_username><length_of_password><username><password>;`
 
-* `user_type` is `0` if the KNS user you setup is designated as an administrator, otherwise, use the string `0` (zero)
+* `user_type` is `0` if the KNS user you setup is designated as an administrator, otherwise, use the string `1`
 * The length of the username and password is a 2-digit number between `01` and `32` (indicating the length in characters of each)
 
 So, if you set up an admin user named `kenwood` and the password `admin`, the full connection string becomes:
