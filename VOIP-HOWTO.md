@@ -23,32 +23,10 @@ The high-quality stream is 16-bit signed, little-endian PCM samples at 16000 hz 
 I think the low-quality stream is 8 bit unsigned, LE PCM at 8000 hz sample rate, but have not verified this yet. 
 
 If you have a Wireshark capture of the UDP packets coming FROM the TS-890, and export just the raw data to a file called `input.bin`,
-the following Ruby program can be used to strip the RTP headers, leaving just the raw PCM samples. This works for the high-quality stream, and
+you can use a program like [scripts/strip-rtp.rb](scripts/strip-rtp.rb) to strip the RTP headers, leaving just the raw PCM samples. This works for the high-quality stream, and
 is untested with the low-quality stream.
 
 You can then open `output.bin` in a file like Audacity, specify 16-bit LE PCM as the format, and hear audio!
-
-```ruby
-#!/usr/bin/env ruby
-
-file = "input.bin"
-outfile = "output.bin"
-
-File.open(file) do |file|
-  File.open(outfile, "wb") do |outfile|
-
-    while (buffer = file.read(652)) do
-      puts "read #{buffer.length} bytes"
-
-      stripped_data = buffer[12, 640] # chop off 12 bytes of RTP headers we don't want
-      puts "stripped down to #{stripped_data.length} bytes"
-
-      outfile.write(stripped_data)
-    end
-
-  end
-end
-```
 
 ## Receiving the VOIP stream with ffmpeg
 
