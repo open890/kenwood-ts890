@@ -4,7 +4,7 @@ The Kenwood TS-890 has an extensive command set, and there are some goodies you 
 
 During this process, you can refer to the TS-890 command reference here: https://www.kenwood.com/i/products/info/amateur/pdf/ts890_pc_command_en_rev1.pdf
 
-In general, commands are send one line at a time, although occasionally, the TS-890 will send multiple commands at once, but still separated by a semicolon (`;`). I've found that it's a good process to read data from the socket one line at a time, and split any incoming data on the semicolon, and then deal with each command individually.
+In general, commands are sent one at a time, although occasionally, the TS-890 will send multiple commands at once, but still separated by a semicolon (`;`). I've found that it's a good process to read data from the socket, and split any incoming data on the semicolon, and then deal with each command individually.
 
 ## Gotchas
 
