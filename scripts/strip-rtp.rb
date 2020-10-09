@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+# This script simply strips all RTP headers off of a raw Wireshark UDP dump
+# of the TS-890 audio stream. It assumed you've enabled the high-quality
+# stream, and have dumped the data to `input.bin`
+#
+# You can then load `output.bin` into an audio tool like Audacity
+
 file = "input.bin"
 outfile = "output.bin"
 
