@@ -14,7 +14,7 @@ After sending `##VP`, the TS-890 will immediately start sending UDP packets back
 
 ## Data Format
 
-The packets returned are RTP (https://tools.ietf.org/html/rfc3550) packets, with he RTP payload type is specified as `96`, which means that it's a vendor-specific payload.
+The packets returned are RTP (https://tools.ietf.org/html/rfc3550) packets, with the RTP payload type specified as `96`, which means that it's a vendor-specific payload.
 
 The payload of these packets are simply raw PCM samples, and you can pipe them into `ffmpeg` for transcoding to other formats, like MP3 or M4A (see below)
 
