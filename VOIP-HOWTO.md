@@ -64,12 +64,14 @@ The radio is expecting an RTP payload of 640 bytes, but in reality, it's 320 val
 In open890, the JS library I am using to capture microphone audio returns 16-bit signed integers (so, in the range of -32768...32767 inclusive).
 I found that the max values were way too loud, and mulitiplying the values by 0.02 seemed to cause the samples to be a reasonable volume.
 
-Pseudocode:
+### Pseudocode:
 
+```
 foreach sample in samples:
   # here we have a value of -32768...32767
   sample = int(sample * 0.02) # lower the volume and convert to an integer
   sample = sample + 32768     # compensate for 'dc offset' - ensure all values are now in the range 0...65536
+```
 
 You now have 320 values of 16-bit unsigned integers. You can take the high and low bytes of these 16-bit values,
 and interpret them as two 8-bit values, therfore having 640 bytes worth of payload for the RTP packet.
