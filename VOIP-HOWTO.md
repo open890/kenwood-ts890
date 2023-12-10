@@ -42,7 +42,7 @@ Once you have an audio file, you can also create a visualization of it:
 
 ## Transmitting audio
 
-To send audio to the TS-890, send RTP packets as described above to the radio on port 60001.
+To send audio to the TS-890, send UDP RTP packets as described above to the radio on port 60001.
 
 ### RTP Payload technical information
 
