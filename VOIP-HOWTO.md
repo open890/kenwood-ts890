@@ -18,9 +18,9 @@ The packets returned are RTP (https://tools.ietf.org/html/rfc3550) packets, with
 
 The payload of these packets are simply raw PCM samples, and you can pipe them into `ffmpeg` for transcoding to other formats, like MP3 or M4A (see below)
 
-The high-quality stream is 16-bit signed, little-endian PCM samples at 16000 hz sample rate. The RTP payload will be 640 bytes long.
+The high-quality stream is 16-bit signed, little-endian PCM samples at 16000 hz sample rate. The RTP payload will be 640 bytes long, containing 320 16-bit samples.
 
-I think the low-quality stream is 8 bit unsigned, LE PCM at 8000 hz sample rate, but have not verified this yet. 
+I think the low-quality stream is 8 bit unsigned, LE PCM at 8000 hz sample rate, but have not verified this yet.
 
 If you have a Wireshark capture of the UDP packets coming FROM the TS-890, and export just the raw data to a file called `input.bin`,
 you can use a program like [scripts/strip-rtp.rb](scripts/strip-rtp.rb) to strip the RTP headers, leaving just the raw PCM samples. This works for the high-quality stream, and
