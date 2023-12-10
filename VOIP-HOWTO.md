@@ -83,19 +83,15 @@ Note that if you end up with a value of 0x0 as a sample, you will need to conver
 I'm not sure what the equivalent operation of this is in say, C, or Python, but I managed to hack it together with this Elixir code:
 
 ```elixir
-packet = data |> Enum.map(fn x ->
-  x
-  |> Kernel.*(0.02)     # not so loud
-  |> trunc()            # convert to integer
-  |> Kernel.+(32768)    # DC offset - make all values unsigned
-  |> Enum.flat_map(fn sample ->
-    # split to high/low bytes so we end up with 640 bytes of payload
-    [
-      sample >>> 8,
-      sample &&& 0xff
-    ]
-  end)
+packet = data
+|> Enum.map(fn sample ->
+  sample = trunc(sample * 0.02) # not so loud, convert to integer
+  sample = sample + 32768       # ensure values are unsigned
+
+  # split to high/low bytes so we end up with 640 bytes of payload
+  [ sample >>> 8, sample &&& 0xff ]
 end)
+|> Enum.flatten()
 |> :binary.list_to_bin()
 |> RTP.make_packet(seq_num)
 
