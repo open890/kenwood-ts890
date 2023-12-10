@@ -88,18 +88,17 @@ packet = data |> Enum.map(fn x ->
   |> Kernel.*(0.02)     # not so loud
   |> trunc()            # convert to integer
   |> Kernel.+(32768)    # DC offset - make all values unsigned
-  |> Enum.reduce([], fn sample, acc ->  # now convert each 16-bit value into two discrete 8-bit values
-    case :binary.encode_unsigned(sample) do
-      << high::8, low::8 >> ->
-        acc ++ [high, low]
-      << 0 >> ->
-        acc ++ [0, 0]
-    end
+  |> Enum.flat_map(fn sample ->
+    # split to high/low bytes so we end up with 640 bytes of payload
+    [
+      sample >>> 8,
+      sample &&& 0xff
+    ]
   end)
 end)
 |> :binary.list_to_bin()
 |> RTP.make_packet(seq_num)
 
-:gen_udp.send(audio_tx_socket, connection.ip_address, @audio_tx_socket_dst_port, packet)
+:gen_udp.send(audio_tx_socket, String.to_charlist(connection.ip_address), @audio_tx_socket_dst_port, packet)
 ```
 
