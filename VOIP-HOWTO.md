@@ -67,6 +67,8 @@ I found that the max values were way too loud, and mulitiplying the values by 0.
 ### Sample Code (Elixir)
 
 ```elixir
+# here, `data` is a list of 320 integers ranging from -32768 to +32767 inclusive
+
 packet = data
 |> Enum.map(fn sample ->
   sample = trunc(sample * 0.02) # not so loud, convert to integer
