@@ -53,9 +53,9 @@ An RTP packet looks like this at the byte level:
 * Extension: 1 bit (always decimal 0)
 * CSRC count: 4 bits (always decimal 0)
 * Marker: 1 bit (always decimal 0)
-* Payload Type: 7 bits (always decimal value `96`)
+* Payload Type: 7 bits (always decimal value `96` (`0x60`))
 * Sequence Number: 2 bytes (16 bits), strictly incrementing with each successive packet sent.
-* Timestamp: 32 bits, but always set to 0x0
+* Timestamp: 32 bits, but always set to `0x00`
 * SSRC: 32 bits (4 bytes). Always `0x38 0x39 0x30 0x00`. Converted to ASCII this looks like '890' in wireshark :)
 * Payload: 640 bytes of the PCM data.
 
