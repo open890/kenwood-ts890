@@ -61,26 +61,10 @@ An RTP packet looks like this at the byte level:
 
 The radio is expecting an RTP payload of 640 bytes, but in reality, it's 320 values of 16-bit unsigned integers, ranging from 0..65536.
 
-In open890, the JS library I am using to capture microphone audio returns 16-bit signed integers (so, in the range of -32768...32767 inclusive).
+In open890, the JS library I am using to capture microphone audio returns 320 16-bit signed integers (so, in the range of -32768...32767 inclusive).
 I found that the max values were way too loud, and mulitiplying the values by 0.02 seemed to cause the samples to be a reasonable volume.
 
-### Pseudocode:
-
-```
-foreach sample in samples:
-  # here we have a value of -32768...32767
-  sample = int(sample * 0.02) # lower the volume and convert to an integer
-  sample = sample + 32768     # compensate for 'dc offset' - ensure all values are now in the range 0...65536
-```
-
-You now have 320 values of 16-bit unsigned integers. You can take the high and low bytes of these 16-bit values,
-and interpret them as two 8-bit values, therfore having 640 bytes worth of payload for the RTP packet.
-
-Note that if you end up with a value of 0x0 as a sample, you will need to convert it to two bytes of 0x0, i.e.
-
-0x0 == 00000000 00000000 -> [0x0, 0x0]
-
-I'm not sure what the equivalent operation of this is in say, C, or Python, but I managed to hack it together with this Elixir code:
+### Sample Code (Elixir)
 
 ```elixir
 packet = data
